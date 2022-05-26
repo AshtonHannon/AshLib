@@ -1,17 +1,16 @@
-import data_structures.DLL;
-import data_structures.SLL;
-import jdk.jshell.execution.Util;
+import data_structures.SortedSLL;
 import util.Utilities;
+
+import java.util.Arrays;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        var dll = new DLL<>();
-        var sll = new SLL<>();
-        dll.fromArray(Utilities.genRandIntArray(100, 0, 100));
-        sll.fromArray(Utilities.genRandIntArray(100, 0, 100));
-        System.out.println(dll);
-        System.out.println(sll);
+        var sortsll = new SortedSLL<>((x, y) -> x/y);
+        var randArr = Utilities.genRandIntArray(100, 0, 100);
+        System.out.printf("Beginning randArr: %s%n", Arrays.toString(randArr));
+        sortsll.fromArray(randArr);
+        System.out.printf("After insertion: %s%n", sortsll);
     }
 }

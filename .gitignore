@@ -16,7 +16,7 @@
 *.rar
 
 # To-Do file
-/src/main/resources/TODO.txt
+/target/classes/TODO.txt
 
 # .idea folder
 /.idea/

@@ -31,4 +31,7 @@ abstract public class LLNode<T> extends BaseNode<T>
         return String.format("LLNode[%s, %s, %s]", strPrev, value.toString(), strNext);
     }
 
+    @Override
+    public int hashCode() { return value.hashCode(); }
+
 }

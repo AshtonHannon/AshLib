@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.NoSuchElementException;
 
-public class DLL<T> implements LinkedListISR<T>, Iterable<T>
+public class DLL<T> implements Iterable<T>, UnsortedLLISR<T>
 {
 
     private static class DLLNode<T> extends LLNode<T>

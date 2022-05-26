@@ -2,27 +2,28 @@ package data_structures;
 
 import java.util.NoSuchElementException;
 
-public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
+public class SortedSLL<T> implements SortedISR<T>
 {
 
-    private static class SLLNode<T> extends LLNode<T>
+    public SortedSLL(SortedKeyComparison keyComparisonFunc)
     {
-        SLLNode(T nodeValue, SLLNode<T> nextNode)
-        {
-            super(nodeValue, nextNode);
-        }
+        this.keyComp = keyComparisonFunc;
     }
 
+    private static class SortedSLLNode<T> extends LLNode<T>
+    {
 
-    /* Head and tail node that is maintained so prepend/append is constant time.
-     * head is a node that proceeds the actual first node in the list, while
-     * tail points to the last actual node in the list.
-     */
-    private SLLNode<T> head, tail;
+        SortedSLLNode(T nodeValue, SortedSLLNode<T> nextNode) { super(nodeValue, nextNode); }
 
-    /* Size of the list */
+    }
+
+    private SortedSLLNode<T> head, tail;
+
     private int size = 0;
 
+    public interface SortedKeyComparison { float compare(float xKey, float yKey); }
+
+    private final SortedKeyComparison keyComp;
 
     private boolean checkFirst(T item)
     {
@@ -34,37 +35,42 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
         return false;
     }
 
-
     private void insertFirst(T item)
     {
-        this.tail = new SLLNode<>(item, null);
-        this.head = new SLLNode<>(null, this.tail);
+        this.tail = new SortedSLLNode<>(item, null);
+        this.head = new SortedSLLNode<>(null, this.tail);
         size++;
     }
-
-
-    @Override
-    public SLLNode<T> headNode() { return (SLLNode<T>) this.head.next; }
-
-
-    @Override
-    public SLLNode<T> tailNode() { return this.tail; }
 
 
     @Override
     public LLIterator<T> iterator() { return new LLIterator<>(this.head); }
 
 
-    public LLIterator<T> tailIterator() { return this.isEmpty() ? null : new LLIterator<>(this.tail); }
-
-
     @Override
-    public void insertAt(T item, LLIterator<T> loc)
+    public void insert(T item)
+    {
+        if (this.checkFirst(item)) return;
+        LLIterator<T> itr = this.iterator();
+        while (itr.hasNext())
+        {
+            float comp = itr.next == null ? 0 : keyComp.compare(itr.next.hashCode(), item.hashCode());
+            if (comp >= 1)
+            {
+                break;
+            }
+            itr.next();
+        }
+        insertAt(item, itr);
+    }
+
+
+    private void insertAt(T item, LLIterator<T> loc)
     {
         if (this.checkFirst(item)) return;
         boolean isNewHead = loc.prev.value == null;
         boolean isNewTail = loc.prev.next == null;
-        SLLNode<T> node = new SLLNode<>(item, (SLLNode<T>) loc.prev.next);
+        SortedSLLNode<T> node = new SortedSLLNode<>(item, (SortedSLLNode<T>) loc.prev.next);
         if (isNewHead)
         {
             this.head.next = node;
@@ -82,26 +88,6 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
 
 
     @Override
-    public void insert(T item)
-    {
-        if (this.checkFirst(item)) return;
-        insertAt(item, this.iterator());
-    }
-
-
-    @Override
-    public void append(T item)
-    {
-        if (this.checkFirst(item)) return;
-        this.insertAt(item, this.tailIterator());
-    }
-
-
-    @Override
-    public void prepend(T item) { this.insert(item); }
-
-
-    @Override
     public T head() { return this.headNode().value; }
 
 
@@ -110,11 +96,11 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
 
 
     @Override
-    public T remove(T item) throws NoSuchElementException
+    public T remove(T item)
     {
         LLIterator<T> loc = find(item);
         if (loc.prev.value == null) { this.head.next = loc.next.next; }
-        if (loc.next.next == null) { this.tail = (SLLNode<T>) loc.prev; }
+        if (loc.next.next == null) { this.tail = (SortedSLLNode<T>) loc.prev; }
         loc.prev.next = loc.next.next;
         size--;
         return item;
@@ -137,6 +123,16 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
     @Override
     public boolean isEmpty() { return size == 0; }
 
+
+    @Override
+    public LLNode<T> headNode()
+    {
+        return this.head.next;
+    }
+
+
+    @Override
+    public LLNode<T> tailNode() { return this.tail; }
 
     @Override
     public String toString() { return this.stringify(); }
