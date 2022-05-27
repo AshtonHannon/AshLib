@@ -24,7 +24,7 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
     private int size = 0;
 
 
-    private boolean checkFirst(T item)
+    protected boolean checkFirst(T item)
     {
         if (this.isEmpty())
         {
@@ -35,7 +35,7 @@ public class SLL<T> implements Iterable<T>, UnsortedLLISR<T>
     }
 
 
-    private void insertFirst(T item)
+    protected void insertFirst(T item)
     {
         this.tail = new SLLNode<>(item, null);
         this.head = new SLLNode<>(null, this.tail);

@@ -31,7 +31,7 @@ public class DLL<T> implements Iterable<T>, UnsortedLLISR<T>
     private boolean isNewTail(LLIterator<T> loc) { return (this.tail.prev == loc.prev); }
 
 
-    private void insertFirst(T item)
+    protected void insertFirst(T item)
     {
         this.tail = new DLLNode<>(null, null, null);
         this.head = new DLLNode<>(null, null, null);
@@ -62,11 +62,7 @@ public class DLL<T> implements Iterable<T>, UnsortedLLISR<T>
     @Override
     public void insertAt(T item, @NotNull LLIterator<T> loc)
     {
-        if (this.isEmpty())
-        {
-            insertFirst(item);
-            return;
-        }
+        if (this.isEmpty()) { insertFirst(item); return; }
         boolean isNewHead = isNewHead(loc);
         boolean isNewTail = isNewTail(loc);
         DLLNode<T> newNode = new DLLNode<>(null, item, null);
@@ -98,11 +94,7 @@ public class DLL<T> implements Iterable<T>, UnsortedLLISR<T>
     @Override
     public void insert(T item)
     {
-        if (this.isEmpty())
-        {
-            insertFirst(item);
-            return;
-        }
+        if (this.isEmpty()) { insertFirst(item); return; }
         insertAt(item, this.iterator());
     }
 

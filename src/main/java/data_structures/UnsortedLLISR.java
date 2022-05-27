@@ -1,5 +1,7 @@
 package data_structures;
 
+import javax.naming.OperationNotSupportedException;
+
 public interface UnsortedLLISR<T> extends LLISR<T>
 {
 

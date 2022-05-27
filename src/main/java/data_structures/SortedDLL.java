@@ -1,20 +1,29 @@
-
 package data_structures;
 
-public class SortedSLL<T> extends SLL<T> implements SortedLLISR<T>
+import org.jetbrains.annotations.NotNull;
+
+import java.util.NoSuchElementException;
+
+public class SortedDLL<T> extends DLL<T> implements SortedLLISR<T>
 {
 
     private final SortedKeyComparison keyComp;
 
-    public SortedSLL(SortedKeyComparison keyComparisonFunc)
+
+    public SortedDLL(SortedKeyComparison keyComparisonFunc) { this.keyComp = keyComparisonFunc; }
+
+
+    private static class SortedDLLNode<T> extends LLNode<T>
     {
-        this.keyComp = keyComparisonFunc;
+        SortedDLLNode(SortedDLLNode<T> prevNode, T nodeValue, SortedDLLNode<T> nextNode)
+        { super(prevNode, nodeValue, nextNode); }
     }
+
 
     @Override
     public void insert(T item)
     {
-        if (super.checkFirst(item)) return;
+        if (this.isEmpty()) { super.insertFirst(item); return; }
         LLIterator<T> itr = this.iterator();
         while (itr.hasNext())
         {

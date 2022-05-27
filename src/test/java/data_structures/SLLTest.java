@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SLLTest
+public class SLLTest
 {
 
     @Test

@@ -7,7 +7,7 @@ public class Utilities
 
     public static Integer[] genRandIntArray(Integer numOfItems, Integer min, Integer max)
     {
-        return new Random().ints(numOfItems, min, max).boxed().toArray(Integer[]::new);
+        return new Random().ints(numOfItems, min, max+1).boxed().toArray(Integer[]::new);
     }
 
 
