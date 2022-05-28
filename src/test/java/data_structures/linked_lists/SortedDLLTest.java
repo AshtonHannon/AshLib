@@ -1,33 +1,26 @@
-package data_structures;
+package data_structures.linked_lists;
 
 import org.junit.jupiter.api.Test;
 import util.Utilities;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * <b>SortedSLLTest</b>
- * Since every test within the SLLTest should work with SLL, it should
- * also work with SortedSLL simply because of inheritance.
- */
-class SortedSLLTest extends SLLTest
+class SortedDLLTest extends DLLTest
 {
 
     @Test
     void insert()
     {
-        SortedSLL<Integer> sll = new SortedSLL<>((x, y) -> x/y);
+        SortedDLL<Integer> dll = new SortedDLL<>((x, y) -> x/y);
         Integer[] randArr = Utilities.genRandIntArray(10000, 0, 100);
-        sll.fromArray(randArr);
+        dll.fromArray(randArr);
         Integer last = 0;
-        for (Integer i : sll.toArray())
+        for (Integer i : dll.toArray())
         {
-            assertTrue(sll.get(i) >= last, "Item is not greater than last! Sorted-ness broken!");
-            last = sll.get(i);
+            assertTrue(dll.get(i) >= last, "Item is not greater than last! Sorted-ness broken!");
+            last = dll.get(i);
         }
     }
-
 
     @Test
     void append()
@@ -51,4 +44,5 @@ class SortedSLLTest extends SLLTest
         SortedSLL<Integer> sll = new SortedSLL<>((x, y) -> x/y);
         assertThrows(UnsupportedOperationException.class, ()->sll.set(1, 10));
     }
+
 }

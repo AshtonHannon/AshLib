@@ -1,4 +1,6 @@
-package data_structures;
+package data_structures.linked_lists;
+
+import data_structures.ISR;
 
 import java.util.ArrayList;
 import java.util.Iterator;

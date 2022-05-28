@@ -1,4 +1,6 @@
-package data_structures;
+package data_structures.linked_lists;
+
+import data_structures.BaseNode;
 
 abstract public class LLNode<T> extends BaseNode<T>
 {

@@ -1,12 +1,18 @@
-import data_structures.SortedDLL;
+import data_structures.linked_lists.SortedDLL;
+import data_structures.trees.BinaryTree;
 import util.Utilities;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        var dll = new SortedDLL<>((x, y) -> x/y);
-        dll.fromArray(Utilities.genRandIntArray(500, 13, 147));
-        System.out.println(dll);
+        var tree = new BinaryTree<>((x, y) -> x/y);
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(100);
+        tree.insert(120);
+        tree.insert(110);
+        System.out.println(tree);
     }
 }

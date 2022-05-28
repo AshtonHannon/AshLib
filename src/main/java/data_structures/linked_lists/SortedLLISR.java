@@ -1,4 +1,4 @@
-package data_structures;
+package data_structures.linked_lists;
 
 public interface SortedLLISR<T> extends LLISR<T>
 {

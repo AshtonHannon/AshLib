@@ -1,5 +1,6 @@
-package data_structures;
+package data_structures.linked_lists;
 
+import data_structures.linked_lists.SLL;
 import org.junit.jupiter.api.Test;
 import util.Utilities;
 
