@@ -21,3 +21,6 @@
 
 # .idea folder
 /.idea/
+
+# Tests folder
+/src/test/
